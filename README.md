@@ -142,7 +142,7 @@ The sidebar organizes the dashboard into three groups: **Core** (system monitori
 
 ### 1. Overview
 
-<!-- Screenshot: overview_panel.png -->
+![Overview Panel](assets/overview_panel.png)
 
 The mission control panel. Streams live hardware telemetry at 4Hz with the following metric cards:
 
@@ -165,7 +165,7 @@ The mission control panel. Streams live hardware telemetry at 4Hz with the follo
 
 ### 2. Neural Kernel
 
-<!-- Screenshot: neural_kernel_panel.png -->
+![Neural Kernel Panel](assets/neural_kernel_panel.png)
 
 The Reinforcement Learning control center. Displays the internal state of the Deep Q-Learning agent.
 
@@ -195,7 +195,7 @@ The Reinforcement Learning control center. Displays the internal state of the De
 
 ### 3. Hardware
 
-<!-- Screenshot: hardware_panel.png -->
+![Hardware Panel](assets/hardware_panel.png)
 
 A deep hardware diagnostic panel with four sections:
 
@@ -219,7 +219,7 @@ A deep hardware diagnostic panel with four sections:
 
 ### 4. Processes
 
-<!-- Screenshot: processes_panel.png -->
+![Processes Panel](assets/processes_panel.png)
 
 A real-time process manager that replaces the Windows Task Manager for monitoring purposes.
 
@@ -231,7 +231,7 @@ The currently active foreground application is highlighted. Processes that the A
 
 ### 5. Semantic Search
 
-<!-- Screenshot: semantic_panel.png -->
+![Semantic Panel](assets/semantic_panel.png)
 
 An offline, meaning-aware search engine powered by the FAISS vector database.
 
@@ -243,7 +243,7 @@ This is not keyword matching. The `sentence-transformers/all-MiniLM-L6-v2` model
 
 ### 6. Predictions
 
-<!-- Screenshot: predictions_panel.png -->
+![Predictions Panel](assets/predictions_panel.png)
 
 Displays the Markov-chain app-switching predictions. AethOS tracks which applications you switch between and in what order. Over time, it builds a probability model that predicts which app you are likely to open next.
 
@@ -253,7 +253,7 @@ If the prediction confidence exceeds the configured Pre-Warming threshold (defau
 
 ### 7. Knowledge Graph
 
-<!-- Screenshot: knowledge_graph_panel.png -->
+![Knowledge Graph Panel](assets/knowledge_graph_panel.png)
 
 A visual node-edge diagram showing the relationships between your indexed files. After indexing a directory, AethOS calculates semantic similarity between every pair of document chunks and draws edges between related nodes. This creates a navigable map of how your files relate to each other conceptually.
 
@@ -261,7 +261,7 @@ A visual node-edge diagram showing the relationships between your indexed files.
 
 ### 8. Power Modes
 
-<!-- Screenshot: power_modes_panel.png -->
+![Power Modes Panel](assets/power_modes_panel.png)
 
 Controls the active Windows power profile. Available modes:
 
@@ -276,7 +276,7 @@ Controls the active Windows power profile. Available modes:
 
 ### 9. AI Logs
 
-<!-- Screenshot: ai_logs_panel.png -->
+![AI Logs Panel](assets/ai_logs_panel.png)
 
 A scrollable log panel showing the AI's decision stream. Each entry shows the timestamp, the action taken (e.g., "Throttled chrome.exe"), and whether it was an exploration or exploitation decision. Logs are also persisted to the `ai_logs/` subdirectory of your configured Log Export Directory.
 
@@ -284,7 +284,7 @@ A scrollable log panel showing the AI's decision stream. Each entry shows the ti
 
 ### 10. Settings
 
-<!-- Screenshot: settings_panel.png -->
+![Settings Panel](assets/settings_panel.png)
 
 The configuration hub, organized into four cards:
 
