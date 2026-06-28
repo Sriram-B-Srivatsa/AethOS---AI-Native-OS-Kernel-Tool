@@ -146,6 +146,14 @@ If you prefer to install dependencies manually or encounter issues with the auto
    python main.py
    ```
 
+### Troubleshooting: Virtual Machine Installs
+
+If you are installing AethOS inside a Virtual Machine for safety testing, you may encounter the following error during the `npm install` step:
+`Assertion failed: new_time >= loop->time, file src\win\core.c`
+
+**Why this happens**: This is a known Windows bug in Node.js's underlying `libuv` engine. When a VM hypervisor forcefully syncs the virtual clock *backwards* by a few milliseconds to match the host machine, Node.js panics because it assumes time is strictly forward-moving.
+**The Fix**: This will not affect normal bare-metal users. If it happens in your VM, simply follow the `Frontend` Installtion from `Manual Setup`. The clock will have stabilized and it will complete successfully.
+
 ### First Launch Behavior
 
 When AethOS boots for the first time, you will notice:
