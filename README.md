@@ -148,15 +148,23 @@ If you prefer to install dependencies manually or encounter issues with the auto
 
 ### Troubleshooting: Virtual Machine Installs
 
-If you are installing AethOS inside a Virtual Machine for safety testing, you may encounter the following error during the `npm install` step:
-`Assertion failed: new_time >= loop->time, file src\win\core.c`
+**1. NPM Installation Fails (Assertion failed: new_time >= loop->time)**
+This is a known Windows bug in Node.js's underlying `libuv` engine. When a VM hypervisor forcefully syncs the virtual clock *backwards* by a few milliseconds to match the host machine, Node.js panics. 
+**The Fix**: Do not run `npm install` in the VM. Instead, run `npm install` and `npm run build` on your physical Host PC. Then, compress the resulting `frontend/dist` folder into a ZIP file, drag it into the VM, and extract it to `AethOS_Repository/frontend/dist`. 
 
-**Why this happens**: This is a known Windows bug in Node.js's underlying `libuv` engine. When a VM hypervisor forcefully syncs the virtual clock *backwards* by a few milliseconds to match the host machine, Node.js panics because it assumes time is strictly forward-moving.
-**The Fix**: This will not affect normal bare-metal users. If it happens in your VM, simply follow the `Frontend` Installtion from `Manual Setup`. The clock will have stabilized and it will complete successfully.
+**2. Black Screen on Launch**
+If you pushed your code to GitHub and pulled it inside a VM, you will get a black screen. This is because the `.gitignore` file specifically ignores the compiled `frontend/dist/` folder (standard developer practice).
+**The Fix**: You must manually transfer the compiled `dist` folder from your Host PC to your VM using the ZIP method mentioned above.
+
+**3. Default PyWebView Logo showing instead of AethOS Logo**
+Modern web browsers (and WebView2) can natively render `.png` favicons for the window. However, the low-level Windows API (`LoadImageW`) used by PyWebView strictly requires a `.ico` file to set the Taskbar icon. If you only provide `logo.png` in the `frontend/public/` folder, the Windows API silently fails and falls back to the default PyWebView icon.
+**The Fix**: Convert your `logo.png` to a `logo.ico` file, place it in `frontend/public/`, and run `npm run build` again. Both files must be shipped for maximum compatibility.
 
 ### First Launch Behavior
 
-When AethOS boots for the first time, you will notice:
+When AethOS boots for the very first time, it will automatically connect to Hugging Face and download the offline AI Brain (`all-MiniLM-L6-v2`). You will see it downloading about 50 tensor files in the console. **This is a one-time operation.**
+
+You will also notice:
 - **Epsilon is 1.0** (100% exploration). The AI has no learned behavior and will randomly explore different throttling strategies.
 - **Prediction Confidence is 0%**. The Markov chain has no app-switching history to predict from.
 - **Semantic Memory is empty**. No files have been indexed into the FAISS vector database.
