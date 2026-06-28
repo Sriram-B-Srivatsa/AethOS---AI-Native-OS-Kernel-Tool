@@ -78,7 +78,7 @@ AethOS operates on a bifurcated client-server architecture running entirely on l
     └─────────────────────┘  └─────────────┘  └─────────────────────┘
 ```
 
-**Frontend**: A Vite-bundled React 19 application using shadcn/ui components, Recharts for data visualization, and Lucide icons. The production build is served as static assets by the Flask backend, rendered inside a native PyWebView window so no external browser is needed.
+**Frontend**: A Vite-bundled React 19 application using shadcn/ui components, Recharts for data visualization, and Lucide icons. The production build is served directly from the `frontend/dist` folder by the Flask backend. This architecture natively couples the backend to the frontend repo structure, eliminating the need to copy assets around and vastly improving the developer experience for open-source contributors. The UI is rendered inside a native PyWebView window so no external browser is needed.
 
 **Backend**: A multi-threaded Python daemon built on Flask and Flask-SocketIO. The primary event loop (the "Kernel") ticks at 4Hz (250ms intervals), aggregating telemetry from `psutil`, passing it through a PyTorch Deep Q-Network, and emitting the resulting system state to the frontend via WebSocket.
 
@@ -108,8 +108,7 @@ This script will:
 3. Install all Python dependencies from `backend/requirements.txt` (PyTorch, psutil, Flask, sentence-transformers, FAISS).
 4. Install all Node.js dependencies for the React frontend.
 5. Compile the React dashboard into optimized static assets.
-6. Copy the compiled assets into the backend's serving directory.
-7. Launch AethOS Prime.
+6. Launch AethOS Prime.
 
 After the first run, you can start AethOS directly with:
 
@@ -118,6 +117,34 @@ cd backend
 venv\Scripts\activate
 python main.py
 ```
+
+### Manual Setup
+
+If you prefer to install dependencies manually or encounter issues with the automated script, follow these steps. **Run all commands starting from the root directory.**
+
+1. **Setup Python Backend**:
+   ```cmd
+   cd backend
+   python -m venv venv
+   venv\Scripts\activate
+   pip install -r requirements.txt
+   cd ..
+   ```
+
+2. **Build React Frontend**:
+   ```cmd
+   cd frontend
+   npm install
+   npm run build
+   cd ..
+   ```
+
+3. **Launch**:
+   ```cmd
+   cd backend
+   venv\Scripts\activate
+   python main.py
+   ```
 
 ### First Launch Behavior
 

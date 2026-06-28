@@ -55,7 +55,7 @@ for /f "tokens=2 delims= " %%v in ('python --version 2^>^&1') do (
 :: Step 2: Check Node.js / npm
 :: ----------------------------------------------------------
 echo  [2/6] Checking Node.js installation...
-npm --version >nul 2>&1
+call npm --version >nul 2>&1
 if %errorlevel% neq 0 (
     echo  [ERROR] npm is not installed or not in your PATH.
     echo  Please install Node.js from https://nodejs.org/
@@ -63,7 +63,7 @@ if %errorlevel% neq 0 (
     pause
     exit /b 1
 )
-for /f %%v in ('npm --version 2^>^&1') do (
+for /f %%v in ('call npm --version 2^>^&1') do (
     echo         Found npm %%v
 )
 
@@ -125,14 +125,9 @@ if %errorlevel% neq 0 (
 cd ..
 
 :: ----------------------------------------------------------
-:: Step 6: Copy compiled frontend assets to backend
+:: Step 6: Finalize setup
 :: ----------------------------------------------------------
-echo  [6/6] Deploying frontend assets to backend...
-if not exist "backend\aethos\interface\assets\" (
-    mkdir "backend\aethos\interface\assets"
-)
-xcopy /E /I /Y "frontend\dist\*" "backend\aethos\interface\assets\" >nul
-echo         Assets deployed successfully.
+echo  [6/6] Finalizing setup...
 
 :: ----------------------------------------------------------
 :: Create the storage directory for first-time users

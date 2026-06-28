@@ -76,7 +76,12 @@ class UIBridge:
 
         # --- ARCHITECTURAL FIX: React SPA Hosting ---
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        self.assets_dir = os.path.join(current_dir, 'assets')
+        
+        # We serve directly from the frontend/dist folder to avoid requiring a copy step.
+        # This couples the backend to the frontend directory structure, but drastically
+        # improves the developer experience for open-source contributors.
+        project_root = os.path.abspath(os.path.join(current_dir, '..', '..', '..'))
+        self.assets_dir = os.path.join(project_root, 'frontend', 'dist')
         
         # static_url_path='' maps the root URL directly to the assets folder
         self.app = Flask(__name__, static_folder=self.assets_dir, static_url_path='')
