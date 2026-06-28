@@ -149,8 +149,8 @@ If you prefer to install dependencies manually or encounter issues with the auto
 ### Troubleshooting: Virtual Machine Installs
 
 **1. NPM Installation Fails (Assertion failed: new_time >= loop->time)**
-This is a known Windows bug in Node.js's underlying `libuv` engine. When a VM hypervisor forcefully syncs the virtual clock *backwards* by a few milliseconds to match the host machine, Node.js panics. 
-**The Fix**: Do not run `npm install` in the VM. Instead, run `npm install` and `npm run build` on your physical Host PC. Then, compress the resulting `frontend/dist` folder into a ZIP file, drag it into the VM, and extract it to `AethOS_Repository/frontend/dist`. 
+This is a known Windows bug in Node.js's underlying `libuv` engine. When a VM hypervisor forcefully syncs the virtual clock *backwards* by a few milliseconds to match the host machine, Node.js panics.
+**The Fix**: Do not run `npm install` in the VM. Instead, run `npm install` and `npm run build` on your physical Host PC. Then, compress the resulting `frontend/dist` folder into a ZIP file, drag it into the VM, and extract it to `AethOS_Repository/frontend/dist` and run from `venv` in backend.
 
 **2. Black Screen on Launch**
 If you pushed your code to GitHub and pulled it inside a VM, you will get a black screen. This is because the `.gitignore` file specifically ignores the compiled `frontend/dist/` folder (standard developer practice).
