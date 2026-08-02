@@ -85,7 +85,16 @@ class UIBridge:
         
         # static_url_path='' maps the root URL directly to the assets folder
         self.app = Flask(__name__, static_folder=self.assets_dir, static_url_path='')
-        self.socketio = SocketIO(self.app, cors_allowed_origins="*")
+        
+        # SECURE CORS POLICY: Blocks malicious websites from accessing the local SocketIO server, 
+        # while explicitly allowing PyWebView (5000) and open-source Vite developers (5173).
+        ALLOWED_ORIGINS = [
+            "http://127.0.0.1:5000",
+            "http://localhost:5000",
+            "http://127.0.0.1:5173",
+            "http://localhost:5173"
+        ]
+        self.socketio = SocketIO(self.app, cors_allowed_origins=ALLOWED_ORIGINS)
         self.api = API(db, kg)
 
         # 1. The SPA Catch-All Route
